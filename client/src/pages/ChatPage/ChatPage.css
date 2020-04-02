@@ -1,0 +1,8 @@
+.chat-page {
+    min-height: 100vh;
+}
+
+.chat-page__wrapper {
+    display: flex;
+    min-height: 91vh;
+}

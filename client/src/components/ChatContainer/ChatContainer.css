@@ -1,0 +1,29 @@
+.chat-container {
+    width: 70%;
+    background-color: aliceblue;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.chat-container__messages {
+    height: 100%;
+}
+
+.chat-container__input {
+    display: flex;
+}
+
+.chat-container__input input {
+    height: 30px;
+    width: 100%;
+}
+
+.chat-container__sender {
+    margin-right: 10px;
+}
+
+.chat-container__name-chat {
+    border-bottom: 1px solid grey;
+}
