@@ -37,10 +37,10 @@ export const newMessageAction = (message) => {
     }
 }
 
-export const sendMessageAction = (message) => {
+export const sendMessageAction = (message, chatId) => {
     return {
         type: SEND_MESSAGE_TYPE,
-        payload: message
+        payload: {message, chatId}
     }
 }
 
