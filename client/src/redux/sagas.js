@@ -28,8 +28,8 @@ function subscribe(socket) {
       emit(removeUserAction( username ));
     });
 
-    socket.on('messages.new', ({ message }) => {
-      emit(newMessageAction( message ));
+    socket.on('messages.new', (message) => {
+      emit(newMessageAction(message));
     });
 
     socket.on('disconnect', e => {

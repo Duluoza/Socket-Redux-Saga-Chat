@@ -7,6 +7,7 @@ const { createChat } = require('./utils/creators')
 
 let usernames = []
 let messages = [];
+let initialChat = createChat()
 
 io.on('connection', socket => {
 
@@ -16,8 +17,6 @@ io.on('connection', socket => {
         console.log(`[server] login: ${username}`);
         usernames.push(username);
         socket.username = username;
-
-        console.log(usernames)
 
         io.emit('users.login', usernames);
     });
@@ -43,20 +42,22 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('message', (text) => {
-        console.log(`[server] message: ${text}`);
-        const message = {
+    socket.on('message', ({message, chatId}) => {
+        console.log(`[server] message: ${message}`);
+        const messageCreate = {
             id: messages.length,
-            text,
+            message,
             username: socket.username,
+            chatId: chatId
         };
-        messages.push(message);
+        messages.push(messageCreate);
 
-        io.emit('messages.new', { message });
+        console.log(messageCreate)
+
+        io.emit('messages.new', messageCreate);
     });
 
     socket.on('initChat', () => {
-        const initialChat = createChat()
         io.emit('initChat.true', initialChat)
     })
 

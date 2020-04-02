@@ -1,9 +1,6 @@
 import { NEW_MESSAGE_TYPE, INIT_CHAT_TYPE } from '../actionTypes'
 
-
 const initialState = {
-    list: [],
-    entities: {},
     chats: [],
     activeChat: null
 };
@@ -11,18 +8,29 @@ const initialState = {
 const chatsReducer = (state = initialState, action) => {
     switch (action.type) {
         case NEW_MESSAGE_TYPE:
+
+            const newMessage = action.payload
+            const UpdateChats = state.chats.find(item => item.id === newMessage.chatId)
+            UpdateChats.messages.push(newMessage)
+            const filterChats = state.chats.filter(item => item.id !== newMessage.chatId)
+            const newChatsState = [...filterChats, UpdateChats]
             return {
                 ...state,
-                list: [...state.list, action.payload.id],
-                entities: { ...state.entities, [action.payload.id]: action.payload }
-            };
+                chats: newChatsState,
+                activeChat: { ...UpdateChats}
+            }
 
         case INIT_CHAT_TYPE: 
-            const newChat  = action.payload
-            return {
-                ...state, 
-                chats: [...state.chats, newChat],
-                activeChat: newChat
+            const initChat = action.payload
+            const newChat = state.chats.find(item => item.id === initChat.id)
+            if(newChat) {
+                return state
+            } else {
+                return {
+                    ...state, 
+                    chats: [...state.chats, initChat],
+                    activeChat: initChat
+                }
             }
 
         default: return state
