@@ -3,3 +3,8 @@
     background-color: gainsboro;
     padding: 10px;
 }
+
+.sider__active {
+    border-right: 4px solid black;
+    background-color: cornsilk;
+}

@@ -9,6 +9,16 @@ const createChat = ({ messages = [], name = "Community", users = [] } = {}) => (
     }
 )
 
+const createUser = ({name = "", socketId = null } = {})=>(
+	{
+		id: uuidv4(),
+		name,
+		socketId
+		
+	}
+)
+
 module.exports = {
-	createChat
+    createChat,
+    createUser
 }

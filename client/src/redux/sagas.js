@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
-import { LOGIN_TYPE, LOGOUT_TYPE, SEND_MESSAGE_TYPE } from './actionTypes'
-import { addUserAction, removeUserAction, newMessageAction, initChatAction } from './actions'
+import { LOGIN_TYPE, LOGOUT_TYPE, SEND_MESSAGE_TYPE, CREATE_CHAT_TYPE } from './actionTypes'
+import { addUserAction, removeUserAction, newMessageAction, initChatAction, startChatAction } from './actions'
 
 
 function connect() {
@@ -24,8 +24,12 @@ function subscribe(socket) {
       emit(initChatAction(chat));
     });
 
-    socket.on('users.logout', ({ username }) => {
-      emit(removeUserAction( username ));
+    socket.on('private.chat', (chat) => {
+        emit(startChatAction(chat));
+    })
+
+    socket.on('users.logout', ( usernames ) => {
+      emit(removeUserAction( usernames ));
     });
 
     socket.on('messages.new', (message) => {
@@ -53,15 +57,22 @@ function* read(socket) {
 
 function* write(socket) {
   while (true) {
-
     const { payload } = yield take(SEND_MESSAGE_TYPE);
     socket.emit('message', payload);
   }
 }
 
+function* create(socket) {
+    while (true) {
+        let { payload } = yield take(CREATE_CHAT_TYPE)
+        socket.emit('private.message', payload);
+      }
+}
+
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
+  yield fork(create, socket);
 }
 
 function* flow() {

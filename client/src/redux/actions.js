@@ -1,5 +1,6 @@
 import { LOGIN_TYPE, LOGOUT_TYPE, ADD_USER_TYPE, 
-    REMOVE_USER_TYPE, NEW_MESSAGE_TYPE, SEND_MESSAGE_TYPE, INIT_CHAT_TYPE } from './actionTypes'
+    REMOVE_USER_TYPE, NEW_MESSAGE_TYPE, SEND_MESSAGE_TYPE, 
+    INIT_CHAT_TYPE, CREATE_CHAT_TYPE, START_CHAT_TYPE, CHANGE_ACTIVE_CHAT_TYPE } from './actionTypes'
 
 
 export const loginAction = (name) => {
@@ -50,5 +51,27 @@ export const initChatAction = (chat) => {
         payload: chat
     }
 }
+
+export const createChatAction = (data) => { 
+    return { 
+        type: CREATE_CHAT_TYPE,
+        payload: data
+    }
+}
+
+export const startChatAction = (data) => { 
+    return { 
+        type: START_CHAT_TYPE,
+        payload: data
+    }
+}
+
+export const changeActiveChatAction = (chat) => { 
+    return { 
+        type: CHANGE_ACTIVE_CHAT_TYPE,
+        payload: chat
+    }
+}
+
 
 
