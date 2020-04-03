@@ -15,11 +15,13 @@ const usersReducer = (state = initialState, action) => {
             return { ...state, username: null }
 
         case ADD_USER_TYPE:
-            return { ...state, users: action.payload }
+            return { ...state, users: Object.values(action.payload) }
 
         case REMOVE_USER_TYPE:
-            const newState = state.users.filter(u => u !== action.payload)
-            return {...state, users: newState}
+            return { ...state, users: Object.values(action.payload) }
+
+            // const newState = state.users.filter(u => u !== action.payload)
+            // return {...state, users: newState}
 
         default: return state
     }
