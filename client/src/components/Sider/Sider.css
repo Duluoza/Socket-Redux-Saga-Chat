@@ -8,3 +8,16 @@
     border-right: 4px solid black;
     background-color: cornsilk;
 }
+
+.sider__chats li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sider__new-message {
+    width: 7px;
+    height: 7px;
+    background: red;
+    border-radius: 50%;
+}

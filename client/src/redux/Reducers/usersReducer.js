@@ -20,9 +20,6 @@ const usersReducer = (state = initialState, action) => {
         case REMOVE_USER_TYPE:
             return { ...state, users: Object.values(action.payload) }
 
-            // const newState = state.users.filter(u => u !== action.payload)
-            // return {...state, users: newState}
-
         default: return state
     }
 }

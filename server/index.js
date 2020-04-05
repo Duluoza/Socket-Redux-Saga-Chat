@@ -21,6 +21,7 @@ io.on('connection', socket => {
         connectedUsers = addUser(connectedUsers, user)
 
         io.emit('users.login', connectedUsers);
+        socket.emit('user.active', user)
     });
 
     socket.on('disconnect', () => {
@@ -59,9 +60,10 @@ io.on('connection', socket => {
     })
 
     socket.on('private.message', ({ user, sender }) => {
+        console.log(user, sender)
         if(user.name in connectedUsers){
             const receiverSocket = connectedUsers[user.name].socketId
-            const newChat = createChat({ name:`${user.name} & ${sender}`, users:[user.name, sender] })
+            const newChat = createChat({ name:`${user.name} & ${sender}`, users:[user.name, sender], creator: sender })
             socket.to(receiverSocket).emit('private.chat', newChat)
             socket.emit("private.chat", newChat)
 		}
