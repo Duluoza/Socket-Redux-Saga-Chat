@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { sendMessageAction } from '../../redux/actions'
@@ -12,7 +12,8 @@ const ChatContainer = () => {
 
     const activeChatNow = useSelector(state => state.chatsReducer.activeChat)
     const chatsState = useSelector(state => state.chatsReducer.chats)
-    const chats = chatsState.find(item => item.id === activeChatNow.id)
+    const chat = chatsState.find(item => item.id === activeChatNow.id)
+    const chatLength = chat && chat.messages.length
 
     const onChangeHandle = (e) => {
         setMessage(e.target.value)
@@ -29,37 +30,49 @@ const ChatContainer = () => {
         }
     }
 
+    const container = useRef(null);
+
+	const scrollToBottom = () => {
+		container.current.scrollTop = container.current.scrollHeight
+    };
+    
+    useEffect(() => {
+		scrollToBottom()
+	}, [chatLength])
+
     return (
         <div className='chat-container'>
-            <div className='chat-container__name-chat'>{activeChatNow && activeChatNow.name}</div>
-            <div className='chat-container__messages'>
-                <ul>
+            <div className='chat-room'>
+                <div className='chat-container__name-chat'>{activeChatNow && activeChatNow.name}</div>
+                <div className='chat-container__messages' ref={container}>
+                    <ul className='chat-thread'>
 
-                    {
-                        chats && chats.messages.map(item =>
-                            <li key={item.id}>
-                                <span className='chat-container__sender'>{item.username} | </span>
-                                <span>{item.message}</span>
-                            </li>
-                        )
-                    }
-                   
-                </ul>
-            </div>
+                        {
+                            chat && chat.messages.map(item =>
+                                <li key={item.id}>
+                                    <span className='chat-container__sender'>{item.username} | </span>
+                                    <span>{item.message}</span>
+                                </li>
+                            )
+                        }
 
-            <div>
-                <form action="" className='chat-container__input'>
-                    <input
-                        type='text'
-                        value={message}
-                        onChange={onChangeHandle}
-                    />
-                    <button
-                        onClick={onSubmit}
-                    >
-                        Send
-                </button>
-                </form>
+                    </ul>
+                </div>
+
+                <div>
+                    <form action="" className='chat-container__input'>
+                        <input
+                            type='text'
+                            value={message}
+                            onChange={onChangeHandle}
+                        />
+                        <button
+                            onClick={onSubmit}
+                        >
+                            Send
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     )
