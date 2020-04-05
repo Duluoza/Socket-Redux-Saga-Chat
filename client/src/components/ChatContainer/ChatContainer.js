@@ -7,9 +7,12 @@ import './ChatContainer.css'
 const ChatContainer = () => {
 
     const [message, setMessage] = useState('');
+
     const dispatch = useDispatch();
 
     const activeChatNow = useSelector(state => state.chatsReducer.activeChat)
+    const chatsState = useSelector(state => state.chatsReducer.chats)
+    const chats = chatsState.find(item => item.id === activeChatNow.id)
 
     const onChangeHandle = (e) => {
         setMessage(e.target.value)
@@ -33,7 +36,7 @@ const ChatContainer = () => {
                 <ul>
 
                     {
-                        activeChatNow && activeChatNow.messages.map(item =>
+                        chats && chats.messages.map(item =>
                             <li key={item.id}>
                                 <span className='chat-container__sender'>{item.username} | </span>
                                 <span>{item.message}</span>

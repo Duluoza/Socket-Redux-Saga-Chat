@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import { LOGIN_TYPE, LOGOUT_TYPE, SEND_MESSAGE_TYPE, CREATE_CHAT_TYPE } from './actionTypes'
-import { addUserAction, removeUserAction, newMessageAction, initChatAction, startChatAction } from './actions'
+import { addUserAction, removeUserAction, newMessageAction, initChatAction, startChatAction, activeUserAction } from './actions'
 
 
 function connect() {
@@ -19,6 +19,10 @@ function subscribe(socket) {
     socket.on('users.login', (usernames) => {
       emit(addUserAction(usernames));
     });
+
+    socket.on('user.active', (user) => {
+        emit(activeUserAction(user));
+      });
 
     socket.on('initChat.true', (chat) => {
       emit(initChatAction(chat));
