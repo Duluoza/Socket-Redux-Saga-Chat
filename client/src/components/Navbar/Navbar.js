@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Button } from 'antd';
+
 
 import { logoutAction } from '../../redux/actions'
 import './Navbar.css'
@@ -16,7 +18,7 @@ const Navbar = () => {
     return (
         <div className='navbar'>
             <h3 className='navbar__title'>{nickname}</h3>
-            <button onClick={handleLogout}>Logout</button>
+            <Button size='default'  onClick={handleLogout}>Logout</Button>
         </div>
     )
 }

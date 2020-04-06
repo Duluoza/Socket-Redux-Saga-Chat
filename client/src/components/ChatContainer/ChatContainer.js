@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Input } from 'antd';
 
 import { sendMessageAction } from '../../redux/actions'
 import './ChatContainer.css'
@@ -59,19 +60,15 @@ const ChatContainer = () => {
                     </ul>
                 </div>
 
-                <div>
-                    <form action="" className='chat-container__input'>
-                        <input
-                            type='text'
-                            value={message}
-                            onChange={onChangeHandle}
-                        />
-                        <button
-                            onClick={onSubmit}
-                        >
-                            Send
-                        </button>
-                    </form>
+                <div className='chat-container__input'>
+                    <Input 
+                        size="large" 
+                        placeholder="Start chatting" 
+                        value={message}
+                        onChange={onChangeHandle}
+                        onPressEnter={onSubmit}
+                    />
+                    <Button type="primary" size='large' onClick={onSubmit}>Send</Button>
                 </div>
             </div>
         </div>

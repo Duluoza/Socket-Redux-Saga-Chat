@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
+import { Input } from 'antd';
 
 import { loginAction } from '../../redux/actions'
 import './AuthPage.css'
@@ -25,14 +26,13 @@ const AuthPage = () => {
 
     return (
         <div className='auth'>
-            <form action="">
-            <input 
-                type='text'
-                value={name}
-                onChange={onChangeHandle}
-            />
-            <button onClick={onSubmit}>Send</button>
-            </form>
+                    <Input 
+                        size="large" 
+                        placeholder="Enter your name" 
+                        value={name}
+                        onChange={onChangeHandle}
+                        onPressEnter={onSubmit}
+                    />
         </div>
     )
 }

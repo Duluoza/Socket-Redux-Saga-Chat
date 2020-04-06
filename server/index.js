@@ -60,7 +60,6 @@ io.on('connection', socket => {
     })
 
     socket.on('private.message', ({ user, sender }) => {
-        console.log(user, sender)
         if(user.name in connectedUsers){
             const receiverSocket = connectedUsers[user.name].socketId
             const newChat = createChat({ name:`${user.name} & ${sender}`, users:[user.name, sender], creator: sender })
@@ -83,7 +82,6 @@ function removeUser(userList, username){
     delete newList[username]
     return newList
 }
-
 
 const API_PORT = 5000;
 

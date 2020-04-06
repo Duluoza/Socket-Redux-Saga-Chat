@@ -4,3 +4,7 @@
     justify-content: center;
     align-items: center;
 }
+
+.auth input {
+    width: 40%;
+}

@@ -2,10 +2,6 @@
     width: 70%;
     background-color: aliceblue;
     height: 100%;
-    /* padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; */
 }
 
 .chat-room {
@@ -20,7 +16,7 @@
     flex-grow: 1;
     overflow-y: scroll;
     position: relative;
-    height: 85vh;
+    height: 84vh;
 }
 
 .chat-thread {
@@ -36,15 +32,21 @@
     display: flex;
 }
 
-.chat-container__input input {
-    height: 30px;
-    width: 100%;
-}
-
 .chat-container__sender {
     margin-right: 10px;
 }
 
 .chat-container__name-chat {
-    border-bottom: 1px solid grey;
+    font-weight: 500;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 5px 10px;
+    background-color: #c1ddf6;
+}
+
+.chat-container__messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chat-container__messages::-webkit-scrollbar-thumb {
+    background-color: #add8ff;
 }
